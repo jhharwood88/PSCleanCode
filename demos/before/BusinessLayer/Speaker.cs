@@ -31,9 +31,7 @@ namespace BusinessLayer
 		{
 
 			int? speakerId = null;
-			
-			var preferredEmployers = new List<string>() { "Microsoft", "Google", "Fog Creek Software", "37Signals" };
-
+		
 			bool speakerAppearsQualified = AppearsExceptional();
 
 			if (!speakerAppearsQualified)
