@@ -29,20 +29,12 @@ namespace BusinessLayer
 		/// <returns>speakerID</returns>
 		public int? Register(IRepository repository)
 		{
-			//lets init some vars
-			int? speakerId = null;
-			
-			//var nt = new List<string> {"MVC4", "Node.js", "CouchDB", "KendoUI", "Dapper", "Angular"};
-			
 
-			//DEFECT #5274 DA 12/10/2012
-			//We weren't filtering out the prodigy domain so I added it.
+			int? speakerId = null;
 			
 						//put list of employers in array
 			var emps = new List<string>() { "Microsoft", "Google", "Fog Creek Software", "37Signals" };
 
-			//DFCT #838 Jimmy 
-			//We're now requiring 3 certifications so I changed the hard coded number. Boy, programming is hard.
 			bool good = ((Exp > 10 || HasBlog || Certifications.Count() > 3 || emps.Contains(Employer)));
 
 
@@ -61,20 +53,11 @@ namespace BusinessLayer
 			bool approved = false;
 			if (good)
 			{
-				//DEFECT #5013 CO 1/12/2012
-				//We weren't requiring at least one session
+				
 				if (Sessions.Count() != 0)
 				{
 					foreach (var session in Sessions)
 					{
-						//foreach (var tech in nt)
-						//{
-						//    if (session.Title.Contains(tech))
-						//    {
-						//        session.Approved = true;
-						//        break;
-						//    }
-						//}
 						var oldTopics = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
 						foreach (var tech in oldTopics)
@@ -99,11 +82,6 @@ namespace BusinessLayer
 
 				if (approved)
 				{
-
-
-
-
-
 
 					//if we got this far, the speaker is approved
 					//let's go ahead and register him/her now.
