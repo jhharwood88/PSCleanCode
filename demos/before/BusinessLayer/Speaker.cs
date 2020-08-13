@@ -31,7 +31,7 @@ namespace BusinessLayer
 		{
 			//lets init some vars
 			int? speakerId = null;
-			bool approved = false;
+			
 			//var nt = new List<string> {"MVC4", "Node.js", "CouchDB", "KendoUI", "Dapper", "Angular"};
 			var ot = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
@@ -66,7 +66,7 @@ namespace BusinessLayer
 								good = true;
 							}
 						}
-
+						bool approved = false;
 						if (good)
 						{
 							//DEFECT #5013 CO 1/12/2012
