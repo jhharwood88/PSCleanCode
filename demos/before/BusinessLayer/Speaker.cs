@@ -34,11 +34,10 @@ namespace BusinessLayer
 		
 			bool speakerAppearsQualified = AppearsExceptional(); || !ObviousRedFlags();
 
-			bool approved = false;
 			if (speakerAppearsQualified)
 			{
 				
-				ApproveSessions(approved);
+				ApproveSessions();
 				
 
 				//Now, save the speaker and sessions to the db.
