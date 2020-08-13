@@ -38,26 +38,7 @@ namespace BusinessLayer
 			if (speakerAppearsQualified)
 			{
 				
-				
-				foreach (var session in Sessions)
-				{
-					var oldTopics = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
-
-					foreach (var tech in oldTopics)
-					{
-						if (session.Title.Contains(tech) || session.Description.Contains(tech))
-						{
-							session.Approved = false;
-							break;
-						}
-						else
-						{
-							session.Approved = true;
-							approved = true;
-						}
-					}
-				}
-								
+				approved = ApproveSessions(approved);
 
 				if (approved)
 				{
@@ -113,6 +94,15 @@ namespace BusinessLayer
 
 			//if we got this far, the speaker is registered.
 			return speakerId;
+		}
+		private void ApproveSessions()
+		{
+			foreach (var session in Sessions)
+			{
+				session.Approved = !SessionIsAboutOldTechnology(session);
+			}
+			bool noSessionsApproved = Sessions.Where(s => s.Approved).Count() == 0;
+			if (noSessionsApproved) throw new NoSessionsApprovedException("No sessions approved");
 		}
 
 		private bool ObviousRedFlags()
