@@ -31,31 +31,29 @@ namespace BusinessLayer
 		{
 
 			int? speakerId = null;
-		
-			bool speakerAppearsQualified = AppearsExceptional(); || !ObviousRedFlags();
 
-			if (speakerAppearsQualified)
-			{
-				
-				ApproveSessions();
-				
+			ValidateRegistration();
 
-				//Now, save the speaker and sessions to the db.
-				try
-				{
-					speakerId = repository.SaveSpeaker(this);
-				}
-			}
-			else
-			{
-				throw new SpeakerDoesntMeetRequirementsException("Speaker doesn't meet our abitrary and capricious standards.");
-			}
-
-
-
-			//if we got this far, the speaker is registered.
+			ApproveSessions();
+			
+			speakerId = repository.SaveSpeaker(this);
+			
 			return speakerId;
 		}
+
+		private void ValidateRegistration()
+		{
+			ValidateData();
+
+			bool speakerAppearsQualified = AppearsExceptional() || !ObviousRedFlags();
+			if (!speakerAppearsQualified)
+			{
+				throw new SpeakerDoesntMeetRequirementsException("This speaker doesn't meet our standards.");
+			}
+
+			ApproveSessions();
+		}
+
 		private void ApproveSessions()
 		{
 			foreach (var session in Sessions)
