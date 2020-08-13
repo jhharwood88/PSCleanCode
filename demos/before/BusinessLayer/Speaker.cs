@@ -34,7 +34,7 @@ namespace BusinessLayer
 			
 			var preferredEmployers = new List<string>() { "Microsoft", "Google", "Fog Creek Software", "37Signals" };
 
-			bool speakerAppearsQualified = ((yearsExperience > 10 || HasBlog || Certifications.Count() > 3 || preferredEmployers.Contains(Employer)));
+			bool speakerAppearsQualified = AppearsExceptional();
 
 			if (!speakerAppearsQualified)
 			{
@@ -132,6 +132,18 @@ namespace BusinessLayer
 			//if we got this far, the speaker is registered.
 			return speakerId;
 		}
+
+		private bool AppearsExceptional()
+		{
+			if (YearsExperience > 10) return true;
+			if (HasBlog) return true;
+			if (Certifications.Count() > 3) return true;
+
+			var preferredEmployers = new List<string>() { "Pluralsight", "Microsoft", "Google", "Fog Creek Software", "37Signals", "Telerik" };
+			if (preferredEmployers.Contains(Employer)) return true;
+			return false;
+		}
+
 		private void ValidateData()
 		{
 			if (string.IsNullOrEmpty(FirstName)) throw new ArgumentNullException("First Name is required.");
