@@ -32,18 +32,11 @@ namespace BusinessLayer
 
 			int? speakerId = null;
 		
-			bool speakerAppearsQualified = AppearsExceptional();
+			bool speakerAppearsQualified = AppearsExceptional(); || !ObviousRedFlags();
 
 			if (!speakerAppearsQualified)
 			{
-				//need to get just the domain from the email
-				string emailDomain = Email.Split('@').Last();
-				var domains = new List<string>() { "aol.com", "hotmail.com", "prodigy.com", "CompuServe.com" };
-
-				if (!domains.Contains(emailDomain) && (!(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)))
-				{
-					speakerAppearsQualified = true;
-				}
+			
 			}
 			bool approved = false;
 			if (speakerAppearsQualified)
@@ -129,6 +122,16 @@ namespace BusinessLayer
 
 			//if we got this far, the speaker is registered.
 			return speakerId;
+		}
+
+		private bool ObviousRedFlags()
+		{
+			//need to get just the domain from the email
+			string emailDomain = Email.Split('@').Last();
+
+			var ancientEmailDomains = new List<string>() { "aol.com", "hotmail.com", "prodigy.com", "compuserve.com" };
+
+			return (ancientEmailDomains.Contains(emailDomain) || ((Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)));
 		}
 
 		private bool AppearsExceptional()
