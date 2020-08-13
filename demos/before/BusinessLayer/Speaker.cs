@@ -31,7 +31,6 @@ namespace BusinessLayer
 		{
 			//lets init some vars
 			int? speakerId = null;
-			bool good = false;
 			bool appr = false;
 			//var nt = new List<string> {"MVC4", "Node.js", "CouchDB", "KendoUI", "Dapper", "Angular"};
 			var ot = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
@@ -53,7 +52,7 @@ namespace BusinessLayer
 
 						//DFCT #838 Jimmy 
 						//We're now requiring 3 certifications so I changed the hard coded number. Boy, programming is hard.
-						good = ((Exp > 10 || HasBlog || Certifications.Count() > 3 || emps.Contains(Employer)));
+						bool good = ((Exp > 10 || HasBlog || Certifications.Count() > 3 || emps.Contains(Employer)));
 
 
 
