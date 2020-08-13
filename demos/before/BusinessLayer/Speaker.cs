@@ -31,7 +31,7 @@ namespace BusinessLayer
 		{
 			//lets init some vars
 			int? speakerId = null;
-			bool appr = false;
+			bool approved = false;
 			//var nt = new List<string> {"MVC4", "Node.js", "CouchDB", "KendoUI", "Dapper", "Angular"};
 			var ot = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
@@ -94,7 +94,7 @@ namespace BusinessLayer
 										else
 										{
 											session.Approved = true;
-											appr = true;
+											approved = true;
 										}
 									}
 								}
@@ -104,7 +104,7 @@ namespace BusinessLayer
 								throw new ArgumentException("Can't register speaker with no sessions to present.");
 							}
 
-							if (appr)
+							if (approved)
 							{
 
 
