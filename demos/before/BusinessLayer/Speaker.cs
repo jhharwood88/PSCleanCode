@@ -33,7 +33,7 @@ namespace BusinessLayer
 			int? speakerId = null;
 			
 			//var nt = new List<string> {"MVC4", "Node.js", "CouchDB", "KendoUI", "Dapper", "Angular"};
-			var ot = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
+			var oldTopics = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
 			//DEFECT #5274 DA 12/10/2012
 			//We weren't filtering out the prodigy domain so I added it.
@@ -84,7 +84,7 @@ namespace BusinessLayer
 									//    }
 									//}
 
-									foreach (var tech in ot)
+									foreach (var tech in oldTopics)
 									{
 										if (session.Title.Contains(tech) || session.Description.Contains(tech))
 										{
