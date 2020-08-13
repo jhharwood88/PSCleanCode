@@ -34,39 +34,30 @@ namespace BusinessLayer
 		
 			bool speakerAppearsQualified = AppearsExceptional(); || !ObviousRedFlags();
 
-			if (!speakerAppearsQualified)
-			{
-			
-			}
 			bool approved = false;
 			if (speakerAppearsQualified)
 			{
 				
-				if (Sessions.Count() != 0)
+				
+				foreach (var session in Sessions)
 				{
-					foreach (var session in Sessions)
-					{
-						var oldTopics = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
+					var oldTopics = new List<string>() { "Cobol", "Punch Cards", "Commodore", "VBScript" };
 
-						foreach (var tech in oldTopics)
+					foreach (var tech in oldTopics)
+					{
+						if (session.Title.Contains(tech) || session.Description.Contains(tech))
 						{
-							if (session.Title.Contains(tech) || session.Description.Contains(tech))
-							{
-								session.Approved = false;
-								break;
-							}
-							else
-							{
-								session.Approved = true;
-								approved = true;
-							}
+							session.Approved = false;
+							break;
+						}
+						else
+						{
+							session.Approved = true;
+							approved = true;
 						}
 					}
 				}
-				else
-				{
-					throw new ArgumentException("Can't register speaker with no sessions to present.");
-				}
+								
 
 				if (approved)
 				{
@@ -151,6 +142,7 @@ namespace BusinessLayer
 			if (string.IsNullOrEmpty(LastName)) throw new ArgumentNullException("Last Name is required.");
 			if (string.IsNullOrEmpty(Email)) throw new ArgumentNullException("Email is required.");
 			if (Sessions.Count() == 0) throw new ArgumentException("Can't register speaker with no sessions to present.");
+			
 		}
 
 		#region Custom Exceptions
