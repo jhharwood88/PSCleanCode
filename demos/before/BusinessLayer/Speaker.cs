@@ -37,7 +37,7 @@ namespace BusinessLayer
 
 			//DEFECT #5274 DA 12/10/2012
 			//We weren't filtering out the prodigy domain so I added it.
-			var domains = new List<string>() { "aol.com", "hotmail.com", "prodigy.com", "CompuServe.com" };
+			
 
 			if (!string.IsNullOrWhiteSpace(FirstName))
 			{
@@ -60,7 +60,8 @@ namespace BusinessLayer
 						{
 							//need to get just the domain from the email
 							string emailDomain = Email.Split('@').Last();
-
+							var domains = new List<string>() { "aol.com", "hotmail.com", "prodigy.com", "CompuServe.com" };
+							
 							if (!domains.Contains(emailDomain) && (!(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)))
 							{
 								good = true;
