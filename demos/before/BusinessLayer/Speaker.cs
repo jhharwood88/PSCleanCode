@@ -80,10 +80,6 @@ namespace BusinessLayer
 						//in case the db call fails 
 					}
 				}
-				else
-				{
-					throw new NoSessionsApprovedException("No sessions approved.");
-				}
 			}
 			else
 			{
