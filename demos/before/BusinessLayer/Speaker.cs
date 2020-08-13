@@ -34,8 +34,6 @@ namespace BusinessLayer
 
 			ValidateRegistration();
 
-			ApproveSessions();
-			
 			speakerId = repository.SaveSpeaker(this);
 			
 			return speakerId;
