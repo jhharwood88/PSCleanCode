@@ -105,6 +105,16 @@ namespace BusinessLayer
 			if (noSessionsApproved) throw new NoSessionsApprovedException("No sessions approved");
 		}
 
+		private bool SessionIsAboutOldTechnology(Session session)
+		{
+			string[] oldTechnologies = new string[] { "Cobol", "Punch Cards", "Commodore", "VBScript" };
+			foreach (var oldTech in oldTechnologies)
+			{
+				if (session.Title.Contains(oldTech) || session.Description.Contains(oldTech)) return true;
+			}
+			return false;
+		}
+
 		private bool ObviousRedFlags()
 		{
 			//need to get just the domain from the email
