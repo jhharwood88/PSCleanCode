@@ -28,7 +28,9 @@ namespace BusinessLayer
 		/// </summary>
 		/// <returns>speakerID</returns>
 		public int? Register(IRepository repository)
-		{
+		{	
+			ValidateData();
+
 			int? speakerId = null;
 
 			ValidateRegistration();
