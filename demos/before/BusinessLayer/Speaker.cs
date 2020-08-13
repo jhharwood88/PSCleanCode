@@ -14,7 +14,7 @@ namespace BusinessLayer
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string Email { get; set; }
-		public int? Exp { get; set; }
+		public int? yearsExperience { get; set; }
 		public bool HasBlog { get; set; }
 		public string BlogURL { get; set; }
 		public WebBrowser Browser { get; set; }
@@ -32,14 +32,11 @@ namespace BusinessLayer
 
 			int? speakerId = null;
 			
-						//put list of employers in array
-			var emps = new List<string>() { "Microsoft", "Google", "Fog Creek Software", "37Signals" };
+			var preferredEmployers = new List<string>() { "Microsoft", "Google", "Fog Creek Software", "37Signals" };
 
-			bool good = ((Exp > 10 || HasBlog || Certifications.Count() > 3 || emps.Contains(Employer)));
+			bool speakerAppearsQualified = ((yearsExperience > 10 || HasBlog || Certifications.Count() > 3 || preferredEmployers.Contains(Employer)));
 
-
-
-			if (!good)
+			if (!speakerAppearsQualified)
 			{
 				//need to get just the domain from the email
 				string emailDomain = Email.Split('@').Last();
@@ -47,11 +44,11 @@ namespace BusinessLayer
 
 				if (!domains.Contains(emailDomain) && (!(Browser.Name == WebBrowser.BrowserName.InternetExplorer && Browser.MajorVersion < 9)))
 				{
-					good = true;
+					speakerAppearsQualified = true;
 				}
 			}
 			bool approved = false;
-			if (good)
+			if (speakerAppearsQualified)
 			{
 				
 				if (Sessions.Count() != 0)
@@ -87,19 +84,19 @@ namespace BusinessLayer
 					//let's go ahead and register him/her now.
 					//First, let's calculate the registration fee. 
 					//More experienced speakers pay a lower fee.
-					if (Exp <= 1)
+					if (yearsExperience <= 1)
 					{
 						RegistrationFee = 500;
 					}
-					else if (Exp >= 2 && Exp <= 3)
+					else if (yearsExperience >= 2 && yearsExperience <= 3)
 					{
 						RegistrationFee = 250;
 					}
-					else if (Exp >= 4 && Exp <= 5)
+					else if (yearsExperience >= 4 && yearsExperience <= 5)
 					{
 						RegistrationFee = 100;
 					}
-					else if (Exp >= 6 && Exp <= 9)
+					else if (yearsExperience >= 6 && yearsExperience <= 9)
 					{
 						RegistrationFee = 50;
 					}
